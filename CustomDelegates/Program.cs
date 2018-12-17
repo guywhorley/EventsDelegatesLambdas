@@ -25,10 +25,6 @@ namespace CustomDelegates
 			int finalHours = del("Chris", WorkType.Shopping);
 			Console.WriteLine($"finalHours: {finalHours}");
 			
-			
-			
-			
-			
 			Console.Read(); // Exit run
 		}
 
