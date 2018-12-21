@@ -18,6 +18,12 @@ namespace Lambdas
 			Console.WriteLine("Action has been processed.");
 		}
 
+		public int ProcessFunc(int x, int y, Func<int, int, int> func)
+		{
+			Console.WriteLine($"Func invoked.");
+			return func(x, y);
+		}
+
 		public void ProcessSomeOtherAction(string str, Action<string> action)
 		{
 			action(str);
