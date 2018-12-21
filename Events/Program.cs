@@ -12,7 +12,11 @@ namespace Events
 		{
 			Worker worker = new Worker();
 
-			// clients SUBSCRIBING to worker notifications
+			// clients SUBSCRIBING to worker notifications the explicit way
+			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(DoSomeWorkHandler);
+			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(AnotherHandler);
+
+			// Build-in shortcut in which EventHandler is assumed 
 			worker.SubscribeToNotifications += DoSomeWorkHandler;
 			worker.SubscribeToNotifications += AnotherHandler;
 
@@ -25,12 +29,21 @@ namespace Events
 
 		// EVENT HANDLERS
 
-		// Using the standard Event pattern where the handlers use sender, args format.
+		/// <summary>
+		/// EventHandler #1.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		static void DoSomeWorkHandler(object sender, MyCustomEventArgs e)
 		{
 			Console.WriteLine($"Handler1 invoked... doing work:{e.Message}");
 		}
 
+		/// <summary>
+		/// EventHandler #2.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		static void AnotherHandler(object sender, MyCustomEventArgs e)
 		{
 			Console.WriteLine($"Handler2 invoked... doing work:{e.Message}");
@@ -42,9 +55,6 @@ namespace Events
 	/// </summary>
 	public class Worker
 	{
-		// events and delegates
-		
-		// the event must reference a delegate
 		/// <summary>
 		/// Raise a notification to subscribers
 		/// </summary>
@@ -63,10 +73,13 @@ namespace Events
 		/// <returns></returns>
 		public int DoSomeWork(string str)
 		{
-			Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
-			// raise the event which in turn will signal all the subscribers
-			//SubscribeToNotifications(this, EventArgs.Empty);
-			SubscribeToNotifications?.Invoke(this, new MyCustomEventArgs("MyCustomEventArgsMessage"));
+			for (int i = 0; i < 5; i++)
+			{
+				System.Threading.Thread.Sleep(2000);
+				Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
+				// raise the event which in turn will signal all the subscribers
+				SubscribeToNotifications?.Invoke(this, new MyCustomEventArgs("Responding to work done."));
+			}
 			return 1;
 		}
 	}
