@@ -31,6 +31,9 @@ namespace Events
 				Console.WriteLine($"Anonymous Handler invoked... {e.Message}");
 			};
 
+			// LAMBDA HANDLER - .NET infers params from event
+			worker.SubscribeToNotifications += (s, e) => Console.WriteLine($"Lamba invoked... {e.Message}");
+
 			// have the worker go do some work. This will raise an event and trigger
 			// the event handlers in the client.
 			worker.DoSomeWork("Raise Notification");
@@ -107,7 +110,7 @@ namespace Events
 			for (int i = 0; i < 5; i++)
 			{
 				System.Threading.Thread.Sleep(2000);
-				Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
+				Console.WriteLine($"\nIn DoSomeWork(): Raising OnWorkEventRaiser({str})");
 				// raise the event which in turn will signal all the subscribers; can pass back
 				// data in the CustomEventArgs
 				SubscribeToNotifications?.Invoke(this, new MyCustomEventArgs("Responding to work done."));
