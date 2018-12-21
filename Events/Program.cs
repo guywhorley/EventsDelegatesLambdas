@@ -12,19 +12,30 @@ namespace Events
 		{
 			Worker worker = new Worker();
 
-			// clients SUBSCRIBING to worker notifications the explicit way
+			// clients SUBSCRIBING to worker notifications the explicit way - (No Delegate Inference)
 			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(DoSomeWorkHandler);
 			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(AnotherHandler);
 
-			// Build-in shortcut in which EventHandler is assumed 
-			worker.SubscribeToNotifications += DoSomeWorkHandler;
+			// Build-in shortcut in which EventHandler is assumed - Using "Delegate Inference"
+			worker.SubscribeToNotifications += DoSomeWorkHandler; // delegate inference
 			worker.SubscribeToNotifications += AnotherHandler;
-
+			worker.SubscribeToNotifications += SomeMoreWorkToReportHandler; 
+			worker.WorkCompleted += NotifyWorkCompleted;
+			
 			// have the worker go do some work. This will raise an event and trigger
 			// the event handlers in the client.
 			worker.DoSomeWork("Raise Notification");
-
 			Console.ReadLine();
+		}
+
+		/// <summary>
+		/// Client work to perform when all the work has been completed.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private static void NotifyWorkCompleted(object sender, MyCustomEventArgs e)
+		{
+			Console.WriteLine(e.Message);
 		}
 
 		// EVENT HANDLERS
@@ -36,7 +47,7 @@ namespace Events
 		/// <param name="e"></param>
 		static void DoSomeWorkHandler(object sender, MyCustomEventArgs e)
 		{
-			Console.WriteLine($"Handler1 invoked... doing work:{e.Message}");
+			Console.WriteLine($"Handler1 invoked... {e.Message}");
 		}
 
 		/// <summary>
@@ -46,7 +57,17 @@ namespace Events
 		/// <param name="e"></param>
 		static void AnotherHandler(object sender, MyCustomEventArgs e)
 		{
-			Console.WriteLine($"Handler2 invoked... doing work:{e.Message}");
+			Console.WriteLine($"Handler2 invoked... {e.Message}");
+		}
+
+		/// <summary>
+		/// Yet another handler
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private static void SomeMoreWorkToReportHandler(object sender, MyCustomEventArgs e)
+		{
+			Console.WriteLine($"Handler-N... {e.Message}");
 		}
 	}
 
@@ -61,6 +82,7 @@ namespace Events
 		//public event EventHandler SubscribeToNotifications; // using standard EventArgs
 		// built-in EventHandler<T> - here, you DO NOT define the delegate
 		public event EventHandler<MyCustomEventArgs> SubscribeToNotifications; // custom EventArgs
+		public event EventHandler<MyCustomEventArgs> WorkCompleted;
 		
 		// using the approach where you explicitly define a handler. 
 		//public event SubscribeNotifyHandler SubscribeToNotifications;
@@ -77,9 +99,13 @@ namespace Events
 			{
 				System.Threading.Thread.Sleep(2000);
 				Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
-				// raise the event which in turn will signal all the subscribers
+				// raise the event which in turn will signal all the subscribers; can pass back
+				// data in the CustomEventArgs
 				SubscribeToNotifications?.Invoke(this, new MyCustomEventArgs("Responding to work done."));
 			}
+
+			// raise completion event
+			WorkCompleted?.Invoke(this, new MyCustomEventArgs("Work has finished."));
 			return 1;
 		}
 	}
