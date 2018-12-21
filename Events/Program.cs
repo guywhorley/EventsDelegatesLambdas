@@ -48,13 +48,13 @@ namespace Events
 		/// <summary>
 		/// Raise a notification to subscribers
 		/// </summary>
-		//public event EventHandler SubscribeToNotifications;
+		//public event EventHandler SubscribeToNotifications; // using standard EventArgs
 		// built-in EventHandler<T> - here, you DO NOT define the delegate
-		//public event EventHandler<MyCustomEventArgs> SubscribeToNotifications;
+		public event EventHandler<MyCustomEventArgs> SubscribeToNotifications; // custom EventArgs
 		
-		// using the approach where you explicitly define a handler.
-		public event SubscribeNotifyHandler SubscribeToNotifications;
-		public delegate void SubscribeNotifyHandler(object sender, MyCustomEventArgs args);
+		// using the approach where you explicitly define a handler. 
+		//public event SubscribeNotifyHandler SubscribeToNotifications;
+		//public delegate void SubscribeNotifyHandler(object sender, MyCustomEventArgs args);
 
 		/// <summary>
 		/// Do some work and when done, raise a notification.
