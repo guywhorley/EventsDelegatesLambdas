@@ -17,5 +17,10 @@ namespace Lambdas
 			action(x, y);
 			Console.WriteLine("Action has been processed.");
 		}
+
+		public void ProcessSomeOtherAction(string str, Action<string> action)
+		{
+			action(str);
+		}
 	}
 }
