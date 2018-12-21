@@ -26,14 +26,14 @@ namespace Events
 		// EVENT HANDLERS
 
 		// Using the standard Event pattern where the handlers use sender, args format.
-		static void DoSomeWorkHandler(object sender, EventArgs e)
+		static void DoSomeWorkHandler(object sender, MyCustomEventArgs e)
 		{
-			Console.WriteLine($"Handler1 invoked... doing work {e}");
+			Console.WriteLine($"Handler1 invoked... doing work:{e.Message}");
 		}
 
-		static void AnotherHandler(object sender, EventArgs e)
+		static void AnotherHandler(object sender, MyCustomEventArgs e)
 		{
-			Console.WriteLine($"Handler2 invoked... doing work {e}");
+			Console.WriteLine($"Handler2 invoked... doing work:{e.Message}");
 		}
 	}
 
@@ -48,18 +48,36 @@ namespace Events
 		/// <summary>
 		/// Raise a notification to subscribers
 		/// </summary>
-		public event EventHandler SubscribeToNotifications;
+		//public event EventHandler SubscribeToNotifications;
+		// built-in EventHandler<T> - here, you DO NOT define the delegate
+		//public event EventHandler<MyCustomEventArgs> SubscribeToNotifications;
 		
+		// using the approach where you explicitly define a handler.
+		public event SubscribeNotifyHandler SubscribeToNotifications;
+		public delegate void SubscribeNotifyHandler(object sender, MyCustomEventArgs args);
+
+		/// <summary>
+		/// Do some work and when done, raise a notification.
+		/// </summary>
+		/// <param name="str"></param>
+		/// <returns></returns>
 		public int DoSomeWork(string str)
 		{
 			Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
 			// raise the event which in turn will signal all the subscribers
-			if (SubscribeToNotifications != null)
-			{
-				SubscribeToNotifications(this, EventArgs.Empty);
-			}
-
+			//SubscribeToNotifications(this, EventArgs.Empty);
+			SubscribeToNotifications?.Invoke(this, new MyCustomEventArgs("MyCustomEventArgsMessage"));
 			return 1;
 		}
+	}
+
+	/// <summary>
+	/// My custom EventArgs containing all the things I care about.
+	/// </summary>
+	public class MyCustomEventArgs : EventArgs
+	{
+		public MyCustomEventArgs(string message) => Message = message;
+
+		public string Message { get; private set; }
 	}
 }
