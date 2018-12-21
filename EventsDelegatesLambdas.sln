@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambdas", "Lambdas\Lambdas.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicatingBetweenControls", "CommunicatingBetweenControls\CommunicatingBetweenControls\CommunicatingBetweenControls.csproj", "{CD8CBEB6-507B-4758-8A6E-C4A7026E6259}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheadsAndDelegates", "AsyncDelegatesAndThreading\AsyncDelegatesAndThreading\TheadsAndDelegates.csproj", "{0D0E29E4-AE37-4058-8159-E7D67C8DDB9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{CD8CBEB6-507B-4758-8A6E-C4A7026E6259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD8CBEB6-507B-4758-8A6E-C4A7026E6259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD8CBEB6-507B-4758-8A6E-C4A7026E6259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0E29E4-AE37-4058-8159-E7D67C8DDB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0E29E4-AE37-4058-8159-E7D67C8DDB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0E29E4-AE37-4058-8159-E7D67C8DDB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0E29E4-AE37-4058-8159-E7D67C8DDB9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
