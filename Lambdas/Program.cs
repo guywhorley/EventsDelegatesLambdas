@@ -15,7 +15,7 @@ namespace Lambdas
 	{
 		static void Main(string[] args)
 		{
-			// Define Business Rules
+			// Define Business Rules for math
 			BizRulesDelegate addDel = (x, y) => x + y;
 			BizRulesDelegate multiplyDel = (x, y) => x * y;
 
