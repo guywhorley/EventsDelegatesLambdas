@@ -6,33 +6,40 @@ using System.Threading.Tasks;
 
 namespace Events
 {
-
-	public delegate int DoWork(string str);
-
 	class Program
 	{
 		static void Main(string[] args)
 		{
 			Worker worker = new Worker();
-			worker.NotifySubscribers += new Worker.SubscribeToNotifications(DoSomeWorkHandler);
-			worker.NotifySubscribers += new Worker.SubscribeToNotifications(AnotherHandler);
 
+			// clients SUBSCRIBING to worker notifications
+			worker.SubscribeToNotifications += DoSomeWorkHandler;
+			worker.SubscribeToNotifications += AnotherHandler;
+
+			// have the worker go do some work. This will raise an event and trigger
+			// the event handlers in the client.
 			worker.DoSomeWork("Raise Notification");
 
 			Console.ReadLine();
 		}
 
-		static void DoSomeWorkHandler(string s)
+		// EVENT HANDLERS
+
+		// Using the standard Event pattern where the handlers use sender, args format.
+		static void DoSomeWorkHandler(object sender, EventArgs e)
 		{
-			Console.WriteLine($"Handler1 invoked... doing work {s}");
+			Console.WriteLine($"Handler1 invoked... doing work {e}");
 		}
 
-		static void AnotherHandler(string s)
+		static void AnotherHandler(object sender, EventArgs e)
 		{
-			Console.WriteLine($"Handler2 invoked... doing work {s}");
+			Console.WriteLine($"Handler2 invoked... doing work {e}");
 		}
 	}
 
+	/// <summary>
+	/// Some service that performs work and allows for subscribing to notifications.
+	/// </summary>
 	public class Worker
 	{
 		// events and delegates
@@ -41,20 +48,17 @@ namespace Events
 		/// <summary>
 		/// Raise a notification to subscribers
 		/// </summary>
-		public event SubscribeToNotifications NotifySubscribers;
-		
-		// the delegate is used in the client classes 
-		/// <summary>
-		/// Subscribe to an event.
-		/// </summary>
-		/// <param name="s"></param>
-		public delegate void SubscribeToNotifications(string s);
+		public event EventHandler SubscribeToNotifications;
 		
 		public int DoSomeWork(string str)
 		{
 			Console.WriteLine($"In DoSomeWork(): Raising OnWorkEventRaiser({str})");
 			// raise the event which in turn will signal all the subscribers
-			NotifySubscribers?.Invoke(str);
+			if (SubscribeToNotifications != null)
+			{
+				SubscribeToNotifications(this, EventArgs.Empty);
+			}
+
 			return 1;
 		}
 	}
