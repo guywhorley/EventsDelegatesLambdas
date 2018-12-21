@@ -16,12 +16,21 @@ namespace Events
 			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(DoSomeWorkHandler);
 			//worker.SubscribeToNotifications += new EventHandler<MyCustomEventArgs>(AnotherHandler);
 
-			// Build-in shortcut in which EventHandler is assumed - Using "Delegate Inference"
-			worker.SubscribeToNotifications += DoSomeWorkHandler; // delegate inference
+			// WIRE UP HANDLERS
+			// Build-in shortcut in which EventHandler is assumed - Using "DELEGATE INFERENCE"
+			worker.SubscribeToNotifications += DoSomeWorkHandler;
 			worker.SubscribeToNotifications += AnotherHandler;
-			worker.SubscribeToNotifications += SomeMoreWorkToReportHandler; 
+			worker.SubscribeToNotifications += SomeMoreWorkToReportHandler;
+			worker.SubscribeToNotifications -= AnotherHandler;
 			worker.WorkCompleted += NotifyWorkCompleted;
-			
+
+			// ANONYMOUS DELEGATE Approach defined at the source. Cannot be attached to other events.
+			// Can be used for uber-simple code to run when event fires.
+			worker.SubscribeToNotifications += delegate(object sender, MyCustomEventArgs e)
+			{
+				Console.WriteLine($"Anonymous Handler invoked... {e.Message}");
+			};
+
 			// have the worker go do some work. This will raise an event and trigger
 			// the event handlers in the client.
 			worker.DoSomeWork("Raise Notification");
