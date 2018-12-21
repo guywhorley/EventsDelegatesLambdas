@@ -18,9 +18,9 @@ namespace Events
 
 			// WIRE UP HANDLERS
 			// Build-in shortcut in which EventHandler is assumed - Using "DELEGATE INFERENCE"
-			worker.SubscribeToNotifications += DoSomeWorkHandler;
+			worker.SubscribeToNotifications += (s,e) => Console.WriteLine($"Handler1 invoked... {e.Message}");
 			worker.SubscribeToNotifications += AnotherHandler;
-			worker.SubscribeToNotifications += SomeMoreWorkToReportHandler;
+			worker.SubscribeToNotifications += (s,e) => Console.WriteLine($"Handler-N... {e.Message}");
 			worker.SubscribeToNotifications -= AnotherHandler;
 			worker.WorkCompleted += NotifyWorkCompleted;
 
@@ -50,17 +50,7 @@ namespace Events
 			Console.WriteLine(e.Message);
 		}
 
-		// EVENT HANDLERS
-
-		/// <summary>
-		/// EventHandler #1.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		static void DoSomeWorkHandler(object sender, MyCustomEventArgs e)
-		{
-			Console.WriteLine($"Handler1 invoked... {e.Message}");
-		}
+		#region Handlers
 
 		/// <summary>
 		/// EventHandler #2.
@@ -71,18 +61,11 @@ namespace Events
 		{
 			Console.WriteLine($"Handler2 invoked... {e.Message}");
 		}
-
-		/// <summary>
-		/// Yet another handler
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private static void SomeMoreWorkToReportHandler(object sender, MyCustomEventArgs e)
-		{
-			Console.WriteLine($"Handler-N... {e.Message}");
-		}
 	}
 
+	#endregion
+
+	#region Worker
 	/// <summary>
 	/// Some service that performs work and allows for subscribing to notifications.
 	/// </summary>
@@ -121,6 +104,7 @@ namespace Events
 			return 1;
 		}
 	}
+	#endregion
 
 	/// <summary>
 	/// My custom EventArgs containing all the things I care about.
