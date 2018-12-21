@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{126471BA-7A89-4BFF-866B-104DD499B982}</ProjectGuid>
+    <ProjectGuid>{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CustomDelegates</RootNamespace>
-    <AssemblyName>CustomDelegates</AssemblyName>
+    <RootNamespace>SimpleExamplesMoka</RootNamespace>
+    <AssemblyName>SimpleExamples</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,10 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomeEventArgs.cs" />
+    <Compile Include="CoolStuff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

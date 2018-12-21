@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormExample", "Windo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomDelegates", "CustomDelegates\CustomDelegates.csproj", "{126471BA-7A89-4BFF-866B-104DD499B982}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDelegate", "SimpleExamples\SimpleDelegate.csproj", "{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEvents", "SimpleEvents\SimpleEvents.csproj", "{2E583DD0-21B1-4641-B2A4-3CD05DF618BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{126471BA-7A89-4BFF-866B-104DD499B982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{126471BA-7A89-4BFF-866B-104DD499B982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{126471BA-7A89-4BFF-866B-104DD499B982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73D9B4A-A9BC-4DBD-AD90-438AB308BC41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E583DD0-21B1-4641-B2A4-3CD05DF618BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E583DD0-21B1-4641-B2A4-3CD05DF618BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E583DD0-21B1-4641-B2A4-3CD05DF618BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E583DD0-21B1-4641-B2A4-3CD05DF618BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

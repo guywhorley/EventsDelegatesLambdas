@@ -22,9 +22,13 @@ namespace CustomDelegates
 			del += del1 + del2;
 
 			// FYI: the last delegate return value is the one that is used. They are not 'accumulated'.
-			int finalHours = del("Chris", WorkType.Shopping);
-			Console.WriteLine($"finalHours: {finalHours}");
-			
+			//int finalHours = del("Chris", WorkType.Shopping);
+			//Console.WriteLine($"finalHours: {finalHours}");
+
+			Worker work = new Worker();
+			work.DoWork("Monday", WorkType.Shopping);
+
+
 			Console.Read(); // Exit run
 		}
 
