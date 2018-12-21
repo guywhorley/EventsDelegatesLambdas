@@ -3,18 +3,15 @@ using static SimpleExamplesMoka.CoolStuff;
 
 namespace SimpleExamplesMoka
 {
+
+	// Delegates - setting up the delegate 'signature'
+	public delegate int ClickHandler(string args);
+	public delegate int UpdateHandler(string args);
+	public delegate int QueryHandler(string args);
+	public delegate int MultiOps(string args);
+
 	class Program
-	{	
-		// Event
-		public event EventHandler StuffDone;
-		
-		// Delegates - setting up the delegate 'signature'
-		public delegate int ClickHandler(string args);
-		public delegate int UpdateHandler(string args);
-		public delegate int QueryHandler(string args);
-		public delegate int MultiOps(string args);
-		public delegate int DoStuffHandler(EventArgs e);
-		
+	{
 		static void Main(string[] args)
 		{
 			CoolStuff cs = new CoolStuff
@@ -23,34 +20,28 @@ namespace SimpleExamplesMoka
 				Age = 50
 			};
 
-			ShowStuff(cs);
+			
+			
 
-			int result;
 			// Assign handlers to the delegates
-			ClickHandler click = new ClickHandler(RespondToClick);
-			UpdateHandler update = new UpdateHandler(RespondToUpdate);
-			QueryHandler query = new QueryHandler(RespondToQuery);
-			MultiOps multiOps = new MultiOps(RespondToClick);
-			DoStuffHandler dsh = new DoStuffHandler(GetMyStuffDone);
-
-
-			multiOps += RespondToUpdate;
-			multiOps += RespondToQuery;
-			multiOps("triggering multi-operations...");
+			//ClickHandler click = new ClickHandler(RespondToClick);
+			//UpdateHandler update = new UpdateHandler(RespondToUpdate);
+			//QueryHandler query = new QueryHandler(RespondToQuery);
+			//MultiOps multiOps = new MultiOps(RespondToClick);
+			
+			//multiOps += RespondToUpdate;
+			//multiOps += RespondToQuery;
+			//multiOps("triggering multi-operations...");
 			
 			// Invoke the handlers
-			click("button clicked");
-			update("database-record update");
-			query("query-db");
+			//click("button clicked");
+			//update("database-record update");
+			//query("query-db");
 
-			
-
-
-			
 			// Clear handlers
-			multiOps = NoOps;
-			result = multiOps("final");
-			Console.WriteLine($"Return value: {result}");
+			//multiOps = NoOps;
+			//result = multiOps("final");
+			//Console.WriteLine($"Return value: {result}");
 
 			// Exit
 			Console.ReadLine();

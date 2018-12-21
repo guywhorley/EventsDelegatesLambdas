@@ -2,8 +2,12 @@
 
 namespace SimpleExamplesMoka
 {
+	public delegate int DoCoolStuffHandler(string s);
+
 	class CoolStuff
 	{
+		public event DoCoolStuffHandler CoolStuffDone;
+		
 		public string Name { get; set; }
 		public int Age { get; set; }
 
@@ -13,5 +17,19 @@ namespace SimpleExamplesMoka
 		{
 			Console.WriteLine($"This:{nameof(cs)} ToString:{cs}");
 		}
+
+		public void DoCoolWork(string s)
+		{
+			OnCoolStuffDone("hello");
+		}
+
+		// event handlers
+		protected virtual int OnCoolStuffDone(string s)
+		{
+			CoolStuffDone?.Invoke("Hello Chris");
+
+			return 1;
+		}
+
 	}
 }
