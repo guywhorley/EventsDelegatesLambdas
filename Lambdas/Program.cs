@@ -33,10 +33,30 @@ namespace Lambdas
 
 			Console.WriteLine($"Adding {a} + {b} = {data.Process(2, 3, addDel)}");
 			Console.WriteLine($"Muliplying {a} * {b} = {data.Process(2, 3, multiplyDel)}");
+		
+			// ACTIONS
+			// Action<T> - takes a single parameter and does not return anything. Built-in to .NET
+			Action<string> messageTarget;
+			Action<int> intTarget;
+
+			messageTarget = WriteMyMessage;
+			messageTarget("Invoking action...");
 			
+			intTarget = WriteMyInt;
+			intTarget(7);
+
+			Action<int, int> myAction = (x, y) => Console.WriteLine($"Adding: 7 + 8 = {x+y}");
+			myAction(7, 8);
+
+
+
 			// Exit
 			Console.WriteLine("Press Enter");
 			Console.ReadLine();
 		}
+
+		private static void WriteMyMessage(string message) => Console.WriteLine($"Writing special message: {message}");
+		private static void WriteMyInt(int a) => Console.WriteLine($"Writing my number: {a}");
+
 	}
 }
