@@ -33,7 +33,6 @@ namespace ThreadsAndDelegates
 	        // called on a second thread
 	        progDel?.BeginInvoke(100, null, null);
 	        MessageBox.Show("Done with opeartion!");
-
         }
 
         //Called Asynchronously
