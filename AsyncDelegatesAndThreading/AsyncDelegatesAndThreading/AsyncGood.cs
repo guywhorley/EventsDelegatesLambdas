@@ -24,6 +24,7 @@ namespace ThreadsAndDelegates
 
         public static void Main()
         {
+			// Some comment
             Application.Run(new AsyncGood());
         }
 
