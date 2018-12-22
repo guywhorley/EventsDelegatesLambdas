@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 namespace ThreadsAndDelegates
 {
+	delegate void UpdateProgressDelegate(int val);
+
     public partial class AsyncBad : Form
     {
 
@@ -26,6 +28,11 @@ namespace ThreadsAndDelegates
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+			// create a delegate and assign the target
+	        var progDel = new UpdateProgressDelegate(StartProcess);
+	        // called on a second thread
+	        progDel?.BeginInvoke(100, null, null);
+	        MessageBox.Show("Done with opeartion!");
 
         }
 
@@ -36,8 +43,9 @@ namespace ThreadsAndDelegates
             this.pbStatus.Maximum = max;
             for (int i = 0; i <= max; i++)
             {
+				// Bad, a 2ndry thread should never touch a GUI thread.
                 Thread.Sleep(10);
-                lblOutput.Text = i.ToString();
+	            lblOutput.Text = i.ToString(); // GUI thread
                 this.pbStatus.Value = i;
             }
         }
